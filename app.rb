@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'json'
+require 'sinatra/activerecord'
 
 get '/' do
   content_type :json
