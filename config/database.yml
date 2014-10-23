@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  host: localhost
+  encoding: unicode
+  user: joshuabook
+  password:
+  pool: 5
+
+development:
+  <<: *default
+  database: development_shavasana
+
+test:
+  <<: *default
+  database: test_shavasana
