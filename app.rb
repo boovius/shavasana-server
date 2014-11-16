@@ -1,8 +1,6 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'json'
-require './config/environments'
-require 'pry'
 
 use Rack::Logger
 
@@ -12,16 +10,18 @@ end
 class Activity < ActiveRecord::Base
 end
 
+def parsed_body
+  JSON.parse(request.body.read)
+end
+
 before do
-  puts 'in before do'
   content_type :json
   headers 'Access-Control-Allow-Origin'  => 'http://localhost:9000',
-          'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST'],
+          'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST', 'PUT'],
           'Access-Control-Allow-Headers' => 'Content-Type'
 end
 
 options '/' do
-  puts 'in options'
   200
 end
 
@@ -29,12 +29,8 @@ get '/' do
   Activity.all.to_json
 end
 
-post '/' do
-  puts 'in post'
-  puts request.body.read
-  binding.pry
-  activity = Activity.find(request.body.read['activity'])
-  binding.pry
+put '/' do
+  activity = Activity.find(parsed_body['activity'])
   activity.value += 1
   activity.save ? activity.to_json : 405
 end
