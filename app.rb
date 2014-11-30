@@ -34,3 +34,7 @@ put '/' do
   activity.value += 1
   activity.save ? activity.to_json : 405
 end
+
+post '/' do
+  Activity.create({title: parsed_body['activity'], value: 0}).to_json
+end
