@@ -2,18 +2,10 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'json'
 require 'resque'
-require './job'
+require 'resque_scheduler'
+require 'resque_scheduler/server'
 
 use Rack::Logger
-
-configure do
-  puts 'in configure'
-  redis_url = ENV["REDISCLOUD_URL"] || "redis://localhost:6379/"
-  uri = URI.parse(redis_url)
-  Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
-  Resque.redis.namespace = "resque:example"
-  set :redis, redis_url
-end
 
 class User < ActiveRecord::Base
 end
@@ -40,10 +32,7 @@ get '/' do
   Activity.all.to_json
 end
 
-get '/resque' do
-  puts 'in resque'
-  Resque.enqueue(UpdateCounts)
-end
+#mount Resque::Server.new, :at => '/resque'
 
 put '/' do
   activity = Activity.find(parsed_body['activity'])
