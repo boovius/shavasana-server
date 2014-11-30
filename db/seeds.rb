@@ -1,4 +1,4 @@
 Activity.create([
-  {'title' => 'yoga', 'value' => 100},
-  {'title' => 'meditation', 'value' => 5}
+  {'title' => 'yoga', 'weekly' => 1},
+  {'title' => 'meditation', 'weekly' => 5}
 ])
