@@ -1,6 +1,17 @@
-source 'http://www.rubygems.org'
+source "https://rubygems.org"
 
-gem "sinatra"
-gem "sinatra-activerecord"
-gem "pg"
-gem "rake"
+gem 'sinatra'
+gem 'thin'
+gem 'pg'
+gem 'activerecord'
+gem 'sinatra-activerecord'
+gem 'rake'
+gem 'sinatra-redis'
+gem 'resque', "~> 1.22.0"
+gem 'resque-scheduler'
+
+group :development do
+  gem 'pry'
+  gem 'pry-byebug'
+  gem 'shotgun'
+end

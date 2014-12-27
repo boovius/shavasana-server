@@ -1,0 +1,4 @@
+update_weekly_monthly_stats:
+  cron: 0 * * * * America/Los_Angeles
+  class: UpdateCounts
+  queue: counts
