@@ -12,7 +12,6 @@ class UpdateCounts
   extend RetriedJob
 
   @queue = :counts
-  puts "Updating Counts class loaded"
 
   def self.perform
     puts "Performing Update Counts!!!!!"
