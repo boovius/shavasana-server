@@ -2,9 +2,12 @@ require_relative 'app'
 require 'sinatra/activerecord/rake'
 require 'resque/tasks'
 require 'resque_scheduler/tasks'
+require 'pry'
 
 task "resque:setup" do
   puts 'in resque:setup'
+
+  ENV['RACK_ENV'] = Sinatra::Application.environment.to_s
 
   ENV['QUEUE'] = 'counts'
 

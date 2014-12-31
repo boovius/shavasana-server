@@ -12,7 +12,7 @@ class UpdateCounts
   extend RetriedJob
 
   @queue = :counts
-  puts "Updating Counts!!!!!"
+  puts "Updating Counts class loaded"
 
   def self.perform
     puts "Performing Update Counts!!!!!"
@@ -20,13 +20,3 @@ class UpdateCounts
     Resque.enqueue(self)
   end
 end
-
-# module FailingJob
-#   @queue = :failing
-
-#   def self.perform(params)
-#     sleep 1
-#     raise 'not processable!'
-#     puts "Processed a job!"
-#   end
-# end
