@@ -18,6 +18,21 @@ end
 
 class Doing < ActiveRecord::Base
   belongs_to :activity
+
+  after_save :update_counts
+
+  def update_counts
+    beginning_of_week  = Time.now - (Time.now.wday - 1).days
+    beginning_of_month = Time.now - (Time.now.day - 1).days
+
+    weekly_doings = activity.doings.where('created_at > ?', beginning_of_week)
+    monthly_doings = activity.doings.where('created_at > ?', beginning_of_month)
+
+    activity.weekly_value = weekly_doings.count
+    activity.monthly_value = monthly_doings.count
+
+    activity.save
+  end
 end
 
 def parsed_body
