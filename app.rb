@@ -4,6 +4,7 @@ require 'json'
 require 'resque'
 require 'resque_scheduler'
 require 'resque_scheduler/server'
+Bundler.require(Sinatra::Application.environment.to_s)
 
 use Rack::Logger
 
@@ -25,11 +26,15 @@ class Doing < ActiveRecord::Base
     beginning_of_week  = Time.now - (Time.now.wday - 1).days
     beginning_of_month = Time.now - (Time.now.day - 1).days
 
-    weekly_doings = activity.doings.where('created_at > ?', beginning_of_week)
-    monthly_doings = activity.doings.where('created_at > ?', beginning_of_month)
+    activity.weekly  = activity
+                        .doings
+                        .where('created_at > ?', beginning_of_week)
+                        .count
 
-    activity.weekly_value = weekly_doings.count
-    activity.monthly_value = monthly_doings.count
+    activity.monthly = activity
+                        .doings
+                        .where('created_at > ?', beginning_of_month)
+                        .count
 
     activity.save
   end

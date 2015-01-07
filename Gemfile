@@ -14,4 +14,5 @@ group :development do
   gem 'pry'
   gem 'pry-byebug'
   gem 'shotgun'
+  gem 'awesome_print'
 end

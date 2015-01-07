@@ -1,4 +1,12 @@
 Activity.create([
-  {'title' => 'yoga', 'weekly' => 1},
-  {'title' => 'meditation', 'weekly' => 5}
+  {'title' => 'yoga'},
+  {'title' => 'meditation'}
 ])
+
+Doing.create(activity: Activity.first)
+Doing.create(activity: Activity.first)
+Doing.create(activity: Activity.first)
+Doing.create(activity: Activity.first)
+Doing.create(activity: Activity.first)
+Doing.create(activity: Activity.second)
+Doing.create(activity: Activity.second)
