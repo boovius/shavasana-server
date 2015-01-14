@@ -36,6 +36,8 @@ class Doing < ActiveRecord::Base
                         .where('created_at > ?', beginning_of_month)
                         .count
 
+    activity.done_last_at = activity.doings.last.created_at
+
     activity.save
   end
 end
@@ -51,21 +53,22 @@ before do
           'Access-Control-Allow-Headers' => 'Content-Type'
 end
 
-options '/' do
+options '*' do
   200
 end
 
-get '/' do
+get '/activities' do
   Activity.all.to_json
 end
 
-put '/' do
-  activity = Activity.find(parsed_body['activity'])
-  Doing.create(activity: activity)
-  activity.done_last_at = Time.now
-  activity.save ? activity.to_json : 405
-end
-
-post '/' do
+post '/activities' do
   Activity.create({title: parsed_body['activity'], weekly: 0, monthly: 0}).to_json
 end
+
+post '/doings' do
+  activity = Activity.find(parsed_body['activity'])
+  Doing.create(activity: activity)
+  activity.reload.to_json
+end
+
+

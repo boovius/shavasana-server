@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20150107044808) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "activities", force: true do |t|
+  create_table "activities", force: :cascade do |t|
     t.string   "title"
     t.integer  "weekly"
     t.integer  "monthly"
@@ -25,14 +25,14 @@ ActiveRecord::Schema.define(version: 20150107044808) do
     t.datetime "done_last_at"
   end
 
-  create_table "doings", force: true do |t|
+  create_table "doings", force: :cascade do |t|
     t.string   "name"
     t.integer  "activity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
