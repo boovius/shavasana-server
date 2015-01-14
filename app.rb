@@ -58,17 +58,22 @@ options '*' do
 end
 
 get '/activities' do
-  Activity.all.to_json
+  Activity.all.to_json.camelize
 end
 
 post '/activities' do
-  Activity.create({title: parsed_body['activity'], weekly: 0, monthly: 0}).to_json
+  Activity.create(
+    {
+      title: parsed_body['activity'],
+      weekly: 0,
+      monthly: 0}
+  ).to_json.camelize
 end
 
 post '/doings' do
   activity = Activity.find(parsed_body['activity'])
   Doing.create(activity: activity)
-  activity.reload.to_json
+  activity.reload.to_json.camelize
 end
 
 
