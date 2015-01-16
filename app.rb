@@ -1,12 +1,4 @@
-require 'sinatra'
-require 'sinatra/activerecord'
-require 'json'
-require 'resque'
-require 'resque_scheduler'
-require 'resque_scheduler/server'
-Bundler.require(Sinatra::Application.environment.to_s)
-
-use Rack::Logger
+require './init'
 
 class User < ActiveRecord::Base
   has_many :activities
@@ -48,7 +40,7 @@ end
 
 before do
   content_type :json
-  headers 'Access-Control-Allow-Origin'  => 'http://localhost:9000',
+  headers 'Access-Control-Allow-Origin'  => ENV['WEB_ORIGIN'],
           'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST', 'PUT'],
           'Access-Control-Allow-Headers' => 'Content-Type'
 end
