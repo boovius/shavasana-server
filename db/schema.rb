@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20150107044808) do
   enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",        limit: 255
     t.integer  "weekly"
     t.integer  "monthly"
     t.datetime "created_at"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150107044808) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
