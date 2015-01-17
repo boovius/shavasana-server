@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'bundler'
+require 'resque_scheduler/server'
 
 environment = ENV['RACK_ENV'] || :development
 
