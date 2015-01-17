@@ -4,6 +4,10 @@ require 'resque/tasks'
 require 'resque_scheduler/tasks'
 require 'pry'
 
+RSpec::Core::RakeTask.new(:spec) do |task|
+  task.pattern = 'spec.rb'
+end
+
 task "resque:setup" do
   puts 'in resque:setup'
 

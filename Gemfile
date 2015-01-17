@@ -15,4 +15,5 @@ group :development do
   gem 'pry-byebug'
   gem 'shotgun'
   gem 'awesome_print'
+  gem 'dotenv'
 end

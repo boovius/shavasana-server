@@ -1,6 +1,6 @@
-ENV['RACK_ENV'] ||= Sinatra::Application.environment.to_s
+environment = ENV['RACK_ENV'] || :development
 
-Bundler.require(ENV['RACK_ENV'])
+Bundler.require(:default, environment)
 
 require './app'
 run Sinatra::Application
