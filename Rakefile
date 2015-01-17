@@ -1,15 +1,17 @@
 require_relative 'app'
+require 'rspec/core/rake_task'
 require 'sinatra/activerecord/rake'
 require 'resque/tasks'
 require 'resque_scheduler/tasks'
+
 
 RSpec::Core::RakeTask.new(:spec) do |task|
   task.pattern = 'spec.rb'
 end
 
-task "resque:setup" do
-  puts 'in resque:setup'
+task default: [:spec]
 
+task "resque:setup" do
   ENV['RACK_ENV'] = Sinatra::Application.environment.to_s
 
   ENV['QUEUE'] = 'counts'

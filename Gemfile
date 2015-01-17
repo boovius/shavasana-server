@@ -11,6 +11,7 @@ gem 'rake'
 gem 'sinatra-redis'
 gem 'resque', "~> 1.22.0"
 gem 'resque-scheduler'
+gem 'rspec'
 
 group :development do
   gem 'pry'
