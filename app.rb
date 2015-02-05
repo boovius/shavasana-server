@@ -1,4 +1,5 @@
 require './init'
+require './login'
 
 class User < ActiveRecord::Base
   has_many :activities
