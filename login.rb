@@ -57,7 +57,7 @@ get "/callback" do
         first_name: data['first_name'],
         last_name: data['last_name'],
         gender: data['gender'],
-        fb_id: data['fb_id']
+        fb_id: data['id']
       )
     end
   end
