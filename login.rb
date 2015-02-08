@@ -24,13 +24,6 @@ get "/" do
   if session[:oauth][:access_token].nil?
     erb :start
   else
-    # http = Net::HTTP.new "graph.facebook.com", 443
-    # request = Net::HTTP::Get.new "/me?access_token=#{session[:oauth][:access_token]}"
-    # http.use_ssl = true
-    # response = http.request request
-    # @json = JSON.parse(response.body)
-
-    # erb :ready
     if  User.find_by(access_token: session[:oauth][:access_token])
       redirect "#{WEB_ORIGIN}/#/login?token=#{session[:oauth][:access_token]}"
     end
@@ -52,7 +45,6 @@ get "/callback" do
     access_token = CGI.parse(response.body)["access_token"][0]
   end
 
-  binding.pry
   if !User.find_by(access_token: access_token)
     uri = URI("https://graph.facebook.com/me?access_token=#{access_token}")
     Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
@@ -60,7 +52,6 @@ get "/callback" do
       response = http.request request
       data = JSON.parse(response.body)
 
-      binding.pry
       User.create(
         access_token: access_token,
         first_name: data['first_name'],
