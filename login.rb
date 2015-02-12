@@ -11,6 +11,7 @@ use Rack::Session::Cookie, :key => 'rack.session',
                            :secret => ENV['SESSION_SECRET']
 
 WEB_ORIGIN = ENV['WEB_ORIGIN']
+SERVER_ORIGIN = ENV['SERVER_ORIGIN']
 
 before do
   @client_id = ENV['FACEBOOK_APP_ID']
@@ -31,14 +32,14 @@ get "/" do
 end
 
 get "/request" do
-  redirect "https://graph.facebook.com/oauth/authorize?client_id=#{@client_id}&redirect_uri=http://localhost:9393/callback"
+  redirect "https://graph.facebook.com/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{SERVER_ORIGIN}/callback"
 end
 
 get "/callback" do
   session[:oauth][:code] = params[:code]
   access_token = ''
 
-  uri = URI("https://graph.facebook.com/oauth/access_token?client_id=#{@client_id}&redirect_uri=http://localhost:9393/callback&client_secret=#{@client_secret}&code=#{session[:oauth][:code]}")
+  uri = URI("https://graph.facebook.com/oauth/access_token?client_id=#{@client_id}&redirect_uri=#{SERVER_ORIGIN}/callback&client_secret=#{@client_secret}&code=#{session[:oauth][:code]}")
   Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
     request = Net::HTTP::Get.new uri
     response = http.request request
