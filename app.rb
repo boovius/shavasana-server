@@ -16,7 +16,8 @@ post '/activities' do
     {
       title: parsed_body['activity'],
       weekly: 0,
-      monthly: 0}
+      monthly: 0,
+      user: @user}
   ).to_json.camelize
 end
 
