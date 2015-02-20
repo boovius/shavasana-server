@@ -29,9 +29,7 @@ get "/login" do
   if session[:oauth][:access_token].nil?
     erb :start
   else
-    if User.find_by(access_token: session[:oauth][:access_token])
-      redirect "#{WEB_ORIGIN}?token=#{session[:oauth][:access_token]}"
-    end
+    facebook_auth(access_token)
   end
 end
 
@@ -40,7 +38,6 @@ get "/login/request" do
 end
 
 get "/login/callback" do
-  user = nil
   session[:oauth][:code] = params[:code]
   access_token = ''
 
@@ -51,6 +48,11 @@ get "/login/callback" do
     access_token = CGI.parse(response.body)["access_token"][0]
   end
 
+  facebook_auth(access_token)
+end
+
+def facebook_auth(access_token)
+  user = nil
   uri = URI("https://graph.facebook.com/me?access_token=#{access_token}")
   Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
     request = Net::HTTP::Get.new uri
