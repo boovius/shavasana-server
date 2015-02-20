@@ -1,6 +1,6 @@
 set :protection, :origin_whitelist => ENV['WEB_ORIGIN']
 
-LOGIN_PATH = /\/login\/*/
+LOGIN_PATH = /(\/login\/*|\/)/
 ASSETS_PATH = /\/assets\/*/
 
 def login_request

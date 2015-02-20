@@ -20,6 +20,10 @@ before do
   session[:oauth] ||= {}
 end
 
+get "/" do
+  redirect "/login"
+end
+
 get "/login" do
   content_type :html
   if session[:oauth][:access_token].nil?
