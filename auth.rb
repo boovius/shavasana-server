@@ -1,4 +1,5 @@
 set :protection, :origin_whitelist => ENV['WEB_ORIGIN']
+set :protection, :except => [:json_csrf]
 
 LOGIN_PATH = /(\/login\/*|\/\z)/
 ASSETS_PATH = /\/assets\/*/
