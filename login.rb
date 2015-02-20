@@ -26,17 +26,17 @@ get "/login" do
     erb :start
   else
     if User.find_by(access_token: session[:oauth][:access_token])
-      redirect "#{WEB_ORIGIN}/#/login?token=#{session[:oauth][:access_token]}"
+      redirect "#{WEB_ORIGIN}?token=#{session[:oauth][:access_token]}"
     end
   end
 end
 
 get "/login/request" do
-  binding.pry
   redirect "https://graph.facebook.com/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{SERVER_ORIGIN}/login/callback"
 end
 
 get "/login/callback" do
+  user = nil
   session[:oauth][:code] = params[:code]
   access_token = ''
 
@@ -47,15 +47,16 @@ get "/login/callback" do
     access_token = CGI.parse(response.body)["access_token"][0]
   end
 
-  if !User.find_by(access_token: access_token)
-    uri = URI("https://graph.facebook.com/me?access_token=#{access_token}")
-    Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
-      request = Net::HTTP::Get.new uri
-      response = http.request request
-      data = JSON.parse(response.body)
+  uri = URI("https://graph.facebook.com/me?access_token=#{access_token}")
+  Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+    request = Net::HTTP::Get.new uri
+    response = http.request request
+    data = JSON.parse(response.body)
 
-      User.create(
-        access_token: access_token,
+    user = User.find_by(fb_id: data['id'])
+    if user.blank?
+      user = User.create(
+        token: SecureRandom.hex,
         first_name: data['first_name'],
         last_name: data['last_name'],
         gender: data['gender'],
@@ -65,5 +66,5 @@ get "/login/callback" do
   end
 
   session[:oauth][:access_token] = access_token
-  redirect "#{WEB_ORIGIN}/#/login?token=#{access_token}"
+  redirect "#{WEB_ORIGIN}/#/login?token=#{user.token}"
 end

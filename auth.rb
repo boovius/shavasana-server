@@ -12,11 +12,11 @@ def assets_request
 end
 
 def authorize_request
-  access_token = request.env['HTTP_X_AUTHORIZATION']
-  @user = User.find_by(access_token: access_token)
+  auth_token = request.env['HTTP_X_AUTHORIZATION']
+  @user = User.find_by(token: auth_token)
 
   if @user == nil
-    error = "Access Token #{access_token} not attributal to any user"
+    error = "Access Token #{auth_token} not attributal to any user"
     halt 401, {'Content-Type' => 'text/plain'}, error
   end
 end

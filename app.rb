@@ -29,6 +29,6 @@ end
 
 get '/users' do
   access_token = request.env['HTTP_X_AUTHORIZATION']
-  User.find_by(access_token: access_token).to_json
+  User.find_by(token: access_token).to_json
 end
 
