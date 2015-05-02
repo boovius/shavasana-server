@@ -17,4 +17,5 @@ group :development do
   gem 'awesome_print'
   gem 'dotenv'
   gem 'rspec'
+  gem 'database_cleaner'
 end
