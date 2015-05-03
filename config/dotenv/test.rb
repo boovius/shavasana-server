@@ -1,0 +1,5 @@
+WEB_ORIGIN='web_origin'
+SERVER_ORIGIN='server_origin'
+FACEBOOK_APP_ID='facebook_app_id'
+FACEBOOK_APP_SECRET='facebook_app_secret'
+SESSION_SECRET='session_secret'

@@ -2,3 +2,4 @@
 vendor/
 dump.rdb
 .env
+config/dotenv/integration.rb
