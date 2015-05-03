@@ -98,6 +98,7 @@ GEM
     tilt (1.4.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    vcr (2.9.3)
     vegas (0.1.11)
       rack (>= 1.0.0)
 
@@ -121,3 +122,4 @@ DEPENDENCIES
   sinatra-activerecord
   sinatra-redis
   thin
+  vcr
