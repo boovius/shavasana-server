@@ -12,6 +12,9 @@ use Rack::Session::Cookie, :key => 'rack.session',
 
 WEB_ORIGIN = ENV['WEB_ORIGIN']
 SERVER_ORIGIN = ENV['SERVER_ORIGIN']
+puts '*' * 30
+puts SERVER_ORIGIN
+puts '&' * 30
 
 before do
   @client_id = ENV['FACEBOOK_APP_ID']
