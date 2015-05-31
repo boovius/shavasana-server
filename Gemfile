@@ -18,6 +18,9 @@ group :development do
   gem 'dotenv'
   gem 'rspec'
   gem 'database_cleaner'
+end
+
+group :test do
   gem 'webmock'
   gem 'vcr'
 end
