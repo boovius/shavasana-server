@@ -11,6 +11,9 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 
+  config.backtrace_exclusion_patterns << /vendor\/bundle/
+  config.backtrace_exclusion_patterns << /spec\/support\/database_cleaner/
+
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
   end

@@ -4,12 +4,8 @@ require 'sinatra/activerecord/rake'
 require 'resque/tasks'
 require 'resque_scheduler/tasks'
 
-
-RSpec::Core::RakeTask.new(:spec) do |task|
-  task.pattern = 'spec.rb'
-end
-
-task default: [:spec]
+RSpec::Core::RakeTask.new(:spec)
+task :default => :spec
 
 task "resque:setup" do
   ENV['RACK_ENV'] = Sinatra::Application.environment.to_s
