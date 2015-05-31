@@ -6,6 +6,6 @@ environment = ENV['RACK_ENV'] || :development
 
 Bundler.require(:default, environment)
 
-Dotenv.load if Sinatra::Application.environment == :development
+require_relative 'config/initializers/dotenv'
 
 use Rack::Logger
